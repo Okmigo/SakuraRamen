@@ -100,8 +100,9 @@
             background: linear-gradient(135deg, rgba(244, 194, 194, 0.1) 0%, rgba(143, 188, 143, 0.1) 100%);
             position: relative;
             overflow: hidden;
+            --parallax-offset: 0px;
         }
-        
+
         .hero-about::before {
             content: '';
             position: absolute;
@@ -112,6 +113,8 @@
             background: url('resources/ramen-tonkotsu.jpg') center/cover no-repeat;
             opacity: 0.2;
             z-index: -1;
+            transform: translateY(var(--parallax-offset, 0px));
+            will-change: transform;
         }
         
         .value-card {
