@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Sakura Ramen | Authentic Japanese Cuisine</title>
+    <meta name="description" content="Explore our complete menu featuring authentic Japanese ramen, appetizers, rice dishes, and desserts. Fresh ingredients, traditional recipes.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --sakura-pink: #F4C2C2;
+            --charcoal: #2C2C2C;
+            --warm-white: #FEFEFE;
+            --sage-green: #8FBC8F;
+            --light-gray: #F8F8F8;
+            --medium-gray: #666666;
+            --soft-cream: #FFF8DC;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--charcoal);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .glass-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(254, 254, 254, 0.9);
+            border-bottom: 1px solid rgba(244, 194, 194, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sakura-pink) 0%, #E8B4B8 100%);
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 194, 194, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(244, 194, 194, 0.4);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(44, 44, 44, 0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--sakura-pink) 0%, var(--sage-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-padding {
+            padding: 6rem 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 4rem 1rem;
+            }
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .card-hover:hover {
+                transform: none;
+            }
+            
+            .mobile-menu-open {
+                overflow: hidden;
+            }
+        }
+        
+        /* Ensure proper spacing and no overlaps */
+        .section-padding {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .animate-fade-in {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .filter-btn {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .filter-btn.active {
+            background: var(--sakura-pink);
+            color: var(--charcoal);
+            border-color: var(--sakura-pink);
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--sakura-pink);
+            color: var(--sakura-pink);
+        }
+        
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        
+        .search-input {
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--sakura-pink);
+            box-shadow: 0 0 0 3px rgba(244, 194, 194, 0.1);
+        }
+        
+        .coming-soon-banner {
+            background: linear-gradient(135deg, var(--sakura-pink) 0%, var(--sage-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Coming Soon Banner -->
+    <div class="coming-soon-banner">
+        🚀 Online Ordering Coming Soon! Call 407-217-2705 to place orders
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-10 w-auto">
+                    <div class="font-display text-2xl font-bold text-gradient">
+                        Sakura Ramen
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Home</a>
+                    <a href="menu.html" class="text-gray-800 hover:text-sakura-pink transition-colors font-medium">Menu</a>
+                    <a href="about.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">About</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Contact</a>
+                    <button class="btn-primary px-6 py-2 rounded-full font-medium">Order Online</button>
+                </div>
+                
+                <button class="md:hidden p-2" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="menu.html" class="block text-gray-800 font-medium">Menu</a>
+                <a href="about.html" class="block text-gray-600">About</a>
+                <a href="contact.html" class="block text-gray-600">Contact</a>
+                <button class="btn-primary px-6 py-2 rounded-full font-medium w-full">Order Online</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Header -->
+    <section class="pt-32 pb-16 bg-light-gray">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 animate-fade-in">
+                <h1 class="font-display text-5xl md:text-6xl font-bold mb-6 text-gradient">Our Menu</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Discover our complete selection of authentic Japanese dishes, crafted with traditional techniques and the freshest ingredients
+                </p>
+            </div>
+            
+            <!-- Search and Filters -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg mb-12 animate-fade-in">
+                <div class="flex flex-col lg:flex-row gap-6 items-center">
+                    <div class="flex-1 w-full">
+                        <input type="text" id="menu-search" placeholder="Search menu items..." 
+                               class="search-input w-full px-6 py-4 rounded-full text-lg outline-none">
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="filter-btn active px-6 py-3 rounded-full font-medium" data-category="all">All Items</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="starters">Starters</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="rice">Rice</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="noodles">Noodles</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="ramen">Ramen</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="desserts">Desserts</button>
+                        <button class="filter-btn px-6 py-3 rounded-full font-medium" data-category="drinks">Drinks</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Items -->
+    <section class="pb-16">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- Starters Category -->
+            <div class="menu-category mb-16" data-category="starters">
+                <h2 class="font-display text-3xl font-bold mb-8 text-center text-charcoal">STARTERS</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="edamame" data-price="6.25">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/edamame.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Edamame</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$6.25</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Fresh steamed soybeans with sea salt</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="vegetable spring roll" data-price="6.25">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/spring-rolls.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Vegetable Spring Roll</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$6.25</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">3 pieces with Thai sweet chili sauce</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="scallion pancakes" data-price="7.95">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/scallion-pancakes.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Chinese Scallions Pancakes</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$7.95</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">With Thai sweet chili sauce</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="vegetable pot stickers" data-price="6.95">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/vegetable-pot-stickers.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Vegetable Pot Stickers</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$6.95</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">6 pieces, steamed or fried</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="pork pot stickers" data-price="6.75">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/pork-pot-stickers.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Pork Pot Stickers</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$6.75</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">6 pieces, steamed or fried</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="shrimp shumai" data-price="8.25">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/shrimp-shumai.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Shrimp Shumai</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$8.25</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">8 pieces, steamed or fried</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="takoyaki" data-price="8.50">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/takoyaki.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Takoyaki</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$8.50</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">5 pieces with octopus, Japanese mayo</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="shrimp tempura" data-price="6.50">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/shrimp-tempura.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Shrimp Tempura</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$6.50</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">3 pieces with tempura sauce</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rice Category -->
+            <div class="menu-category mb-16" data-category="rice">
+                <h2 class="font-display text-3xl font-bold mb-8 text-center text-charcoal">RICE</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="fried rice" data-price="11.25">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/fried-rice.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Fried Rice</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$11.25</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">With homemade soy sauce, egg, scallions</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="japanese rice bowl" data-price="11.25">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-500">Image Coming Soon</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Japanese Rice Bowl</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$11.25</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Stir fried vegetables with homemade brown sauce</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="japanese curry" data-price="11.95">
+                        <div class="h-48 bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-500">Image Coming Soon</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Japanese Style Curry</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$11.95</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">With carrots, potatoes, onions</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ramen Category -->
+            <div class="menu-category mb-16" data-category="ramen">
+                <h2 class="font-display text-3xl font-bold mb-8 text-center text-charcoal">RAMEN NOODLES</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="tonkotsu ramen" data-price="13.50">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/ramen-tonkotsu.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Tonkotsu Ramen</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$13.50</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Creamy pork broth with traditional toppings</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="shoyu ramen" data-price="13.50">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/shoyu-ramen.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Shoyu Ramen</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$13.50</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Soy sauce chicken broth with traditional toppings</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item card-hover bg-white rounded-2xl overflow-hidden shadow-lg stagger-item" data-name="miso ramen" data-price="13.50">
+                        <div class="h-48 bg-cover bg-center" style="background-image: url('resources/miso-ramen.jpg')"></div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-display text-xl font-bold text-charcoal">Miso Ramen</h3>
+                                <span class="text-xl font-bold text-sakura-pink">$13.50</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Miso chicken broth with traditional toppings</p>
+                            <button class="w-full btn-primary py-3 rounded-full font-medium add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-8 w-auto">
+                <div class="font-display text-3xl font-bold text-gradient">
+                    Sakura Ramen
+                </div>
+            </div>
+            <p class="text-gray-400 mb-8">
+                Dedicated to serving the finest and freshest Japanese cuisine
+            </p>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                <a href="menu.html" class="text-gray-400 hover:text-white transition-colors">Menu</a>
+                <a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-500">
+                    © 2024 Sakura Ramen. All rights reserved. | 4848 S Apopka-Vineland Rd Suite 208, Windermere, FL 32819
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-full">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-sakura-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-charcoal">Coming Soon!</h3>
+                    <p class="text-gray-600 mb-6">Our online ordering system is currently in development. Please call us at 407-217-2705 to place your order.</p>
+                    <button id="close-cart-modal" class="btn-primary px-8 py-3 rounded-full font-medium">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Sakura Ramen | Our Story & Mission</title>
+    <meta name="description" content="Learn about Sakura Ramen's story, our commitment to authentic Japanese cuisine, and our mission to serve the finest and freshest foods in Windermere, FL.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --sakura-pink: #F4C2C2;
+            --charcoal: #2C2C2C;
+            --warm-white: #FEFEFE;
+            --sage-green: #8FBC8F;
+            --light-gray: #F8F8F8;
+            --medium-gray: #666666;
+            --soft-cream: #FFF8DC;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--charcoal);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-japanese {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        .glass-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(254, 254, 254, 0.9);
+            border-bottom: 1px solid rgba(244, 194, 194, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sakura-pink) 0%, #E8B4B8 100%);
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 194, 194, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(244, 194, 194, 0.4);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--sakura-pink) 0%, var(--sage-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-padding {
+            padding: 6rem 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 4rem 1rem;
+            }
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .hero-about {
+            background: linear-gradient(135deg, rgba(244, 194, 194, 0.1) 0%, rgba(143, 188, 143, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('resources/ramen-tonkotsu.jpg') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .value-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .value-card:hover {
+            border-color: var(--sakura-pink);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(44, 44, 44, 0.1);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--sakura-pink);
+            border-radius: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 0.375rem;
+            top: 1.5rem;
+            width: 0.25rem;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, var(--sakura-pink), transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .value-card:hover {
+                transform: none;
+            }
+            
+            .mobile-menu-open {
+                overflow: hidden;
+            }
+        }
+        
+        /* Ensure proper spacing and no overlaps */
+        .section-padding {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .animate-fade-in {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-10 w-auto">
+                    <div class="font-display text-2xl font-bold text-gradient">
+                        Sakura Ramen
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Home</a>
+                    <a href="menu.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Menu</a>
+                    <a href="about.html" class="text-gray-800 hover:text-sakura-pink transition-colors font-medium">About</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Contact</a>
+                    <button class="btn-primary px-6 py-2 rounded-full font-medium">Order Online</button>
+                </div>
+                
+                <button class="md:hidden p-2" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+            <div class="px-6 py-4 space-y-4">
+                <a href="index.html" class="block text-gray-600">Home</a>
+                <a href="menu.html" class="block text-gray-600">Menu</a>
+                <a href="about.html" class="block text-gray-800 font-medium">About</a>
+                <a href="contact.html" class="block text-gray-600">Contact</a>
+                <button class="btn-primary px-6 py-2 rounded-full font-medium w-full">Order Online</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-about min-h-screen flex items-center justify-center pt-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="animate-fade-in">
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 text-gradient" data-splitting>
+                    Our Story
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-700 max-w-3xl mx-auto leading-relaxed">
+                    A journey of passion, tradition, and culinary excellence
+                </p>
+                <p class="text-lg mb-12 text-gray-600 max-w-2xl mx-auto">
+                    From the bustling streets of Tokyo to the heart of Windermere, our story is one of dedication 
+                    to authentic Japanese cuisine and unwavering commitment to quality.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Statement -->
+    <section class="section-padding">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-8 text-charcoal">Our Mission</h2>
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                        "We are dedicated to serve the finest and freshest foods" - This simple yet profound statement 
+                        guides everything we do at Sakura Ramen. It's not just our tagline; it's our promise to every 
+                        guest who walks through our doors.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        We believe that great ramen is more than just a meal—it's an experience that connects people 
+                        to the rich cultural heritage of Japan. Every bowl we serve represents hours of careful preparation, 
+                        traditional techniques passed down through generations, and the finest ingredients sourced from 
+                        around the world.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section-padding bg-light-gray">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="font-display text-4xl font-bold mb-6 text-charcoal">Our Values</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    The principles that guide our culinary journey and define our commitment to excellence
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="value-card bg-white rounded-2xl p-8 text-center stagger-item">
+                    <div class="w-16 h-16 bg-sakura-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-charcoal">Authenticity</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We honor traditional Japanese cooking methods, from our 24-hour simmered broths to 
+                        our hand-pulled noodles. Every recipe is rooted in centuries of culinary heritage.
+                    </p>
+                </div>
+                
+                <div class="value-card bg-white rounded-2xl p-8 text-center stagger-item">
+                    <div class="w-16 h-16 bg-sage-green rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-charcoal">Quality</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We source the finest ingredients, from premium Japanese soy sauce to fresh vegetables 
+                        from local farms. Quality is never compromised in our pursuit of perfection.
+                    </p>
+                </div>
+                
+                <div class="value-card bg-white rounded-2xl p-8 text-center stagger-item">
+                    <div class="w-16 h-16 bg-sakura-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-4 text-charcoal">Community</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        We're more than a restaurant—we're a gathering place where friends and families 
+                        come together to share great food and create lasting memories.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Journey -->
+    <section class="section-padding">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="animate-fade-in">
+                    <h2 class="font-display text-4xl font-bold mb-8 text-charcoal">Our Journey</h2>
+                    <div class="space-y-8">
+                        <div class="timeline-item">
+                            <h3 class="font-display text-xl font-bold mb-2 text-charcoal">2019 - The Beginning</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Our founders, inspired by their travels through Japan and deep appreciation for authentic 
+                                ramen culture, began planning what would become Sakura Ramen with a simple vision: 
+                                bring true Japanese ramen to Central Florida.
+                            </p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="font-display text-xl font-bold mb-2 text-charcoal">2020 - Perfecting the Craft</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Months of recipe development, working with master chefs from Japan, and sourcing 
+                                the finest ingredients. Every broth was tested hundreds of times until it met 
+                                our exacting standards for authenticity and flavor.
+                            </p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="font-display text-xl font-bold mb-2 text-charcoal">2021 - Opening Day</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                After extensive preparation and training, Sakura Ramen opened its doors in Windermere, 
+                                bringing authentic Japanese ramen to the local community. The response was overwhelming, 
+                                confirming our belief in the demand for quality Japanese cuisine.
+                            </p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h3 class="font-display text-xl font-bold mb-2 text-charcoal">Today - Growing Community</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                We've become a beloved destination for ramen enthusiasts and newcomers alike. 
+                                Our commitment remains unchanged: serve the finest and freshest foods while 
+                                creating an authentic Japanese dining experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in">
+                    <div class="relative">
+                        <div class="w-full h-96 bg-cover bg-center rounded-2xl shadow-2xl" style="background-image: url('resources/starters-platter.jpg')"></div>
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-sage-green rounded-full opacity-20"></div>
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-sakura-pink rounded-full opacity-20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef Profiles -->
+    <section class="section-padding bg-light-gray">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="font-display text-4xl font-bold mb-6 text-charcoal">Meet Our Team</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Passionate culinary professionals dedicated to bringing you the authentic taste of Japan
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white rounded-2xl p-8 text-center stagger-item">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">Chef Photo</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-2 text-charcoal">Chef Hiroshi Tanaka</h3>
+                    <p class="text-sakura-pink font-medium mb-4">Head Ramen Master</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        With over 20 years of experience in renowned ramen shops across Tokyo and Osaka, 
+                        Chef Tanaka brings authentic techniques and deep knowledge of traditional broth-making. 
+                        His signature tonkotsu broth simmers for 24 hours to achieve perfect richness and depth.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center stagger-item">
+                    <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">Chef Photo</span>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold mb-2 text-charcoal">Chef Yuki Sato</h3>
+                    <p class="text-sage-green font-medium mb-4">Sous Chef & Appetizer Specialist</p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Trained in traditional Japanese cuisine with expertise in creating delicate appetizers 
+                        and perfect rice dishes. Chef Sato's attention to detail ensures every dish meets 
+                        our high standards for both taste and presentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section-padding">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="bg-white rounded-3xl p-12 shadow-lg animate-fade-in">
+                <h2 class="font-display text-4xl font-bold mb-6 text-charcoal">Experience Our Story</h2>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    We invite you to be part of our continuing journey. Every bowl of ramen we serve 
+                    carries with it our passion, our values, and our commitment to excellence.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="menu.html" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold inline-block">
+                        Explore Our Menu
+                    </a>
+                    <a href="contact.html" class="border-2 border-gray-800 text-gray-800 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300">
+                        Visit Us Today
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-white py-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-8 w-auto">
+                <div class="font-display text-3xl font-bold text-gradient">
+                    Sakura Ramen
+                </div>
+            </div>
+            <p class="text-gray-400 mb-8">
+                Dedicated to serving the finest and freshest Japanese cuisine
+            </p>
+            <div class="flex justify-center space-x-8 mb-8">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a>
+                <a href="menu.html" class="text-gray-400 hover:text-white transition-colors">Menu</a>
+                <a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-gray-500">
+                    © 2024 Sakura Ramen. All rights reserved. | 4848 S Apopka-Vineland Rd Suite 208, Windermere, FL 32819
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>
