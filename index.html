@@ -157,6 +157,21 @@
             position: relative;
             z-index: 2;
         }
+        
+        /* Hero logo styling */
+        .hero-logo {
+            max-width: 200px;
+            height: auto;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-logo {
+                max-width: 150px;
+                margin-bottom: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -164,11 +179,8 @@
     <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-10 w-auto">
-                    <div class="font-display text-2xl font-bold text-gradient">
-                        Sakura Ramen
-                    </div>
+                <div class="flex items-center">
+                    <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-12 w-auto">
                 </div>
                 
                 <div class="hidden md:flex items-center space-x-8">
@@ -203,9 +215,7 @@
     <section class="hero-bg min-h-screen flex items-center justify-center pt-20">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <div class="animate-fade-in">
-                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 text-gradient" data-splitting>
-                    Sakura Ramen
-                </h1>
+                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="hero-logo">
                 <p class="text-xl md:text-2xl mb-8 text-gray-700 max-w-3xl mx-auto leading-relaxed">
                     We are dedicated to serve the finest and freshest foods
                 </p>
@@ -398,10 +408,7 @@
     <footer class="bg-charcoal text-white py-12">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <div class="flex items-center justify-center space-x-3 mb-4">
-                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-8 w-auto">
-                <div class="font-display text-3xl font-bold text-gradient">
-                    Sakura Ramen
-                </div>
+                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-10 w-auto">
             </div>
             <p class="text-gray-400 mb-8">
                 Dedicated to serving the finest and freshest Japanese cuisine
