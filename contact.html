@@ -20,7 +20,98 @@
     <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
     
     <!-- Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script>
+        function removePlaceholder(mapElement) {
+            const placeholder = mapElement.querySelector('.map-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
+
+        function renderMapFallback() {
+            const mapElement = document.getElementById('map');
+            if (!mapElement) return;
+
+            removePlaceholder(mapElement);
+
+            if (!mapElement.querySelector('iframe')) {
+                const fallbackFrame = document.createElement('iframe');
+                fallbackFrame.src = 'https://maps.google.com/maps?q=4848%20S%20Apopka-Vineland%20Rd%20Suite%20208,%20Windermere,%20FL%2032819&z=15&output=embed';
+                fallbackFrame.width = '100%';
+                fallbackFrame.height = '100%';
+                fallbackFrame.style.border = '0';
+                fallbackFrame.loading = 'lazy';
+                fallbackFrame.referrerPolicy = 'no-referrer-when-downgrade';
+                fallbackFrame.setAttribute('title', 'Google Maps view of Sakura Ramen in Windermere, Florida');
+                mapElement.appendChild(fallbackFrame);
+            }
+        }
+
+        window.initMap = function() {
+            const mapElement = document.getElementById('map');
+            if (!mapElement || typeof google === 'undefined') {
+                renderMapFallback();
+                return;
+            }
+
+            removePlaceholder(mapElement);
+
+            const restaurantLocation = {
+                lat: 28.488273,
+                lng: -81.507901
+            };
+
+            const map = new google.maps.Map(mapElement, {
+                center: restaurantLocation,
+                zoom: 15,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false
+            });
+
+            new google.maps.Marker({
+                position: restaurantLocation,
+                map,
+                title: 'Sakura Ramen'
+            });
+        };
+
+        async function loadGoogleMapsScript() {
+            const mapElement = document.getElementById('map');
+            if (!mapElement) return;
+
+            try {
+                const response = await fetch('/.netlify/functions/get-google-maps-api-key');
+                if (!response.ok) {
+                    throw new Error('Failed to load Google Maps configuration');
+                }
+
+                const data = await response.json();
+                if (!data.key) {
+                    throw new Error('Google Maps API key is not configured');
+                }
+
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(data.key)}&callback=initMap`;
+                script.async = true;
+                script.defer = true;
+                script.onerror = () => {
+                    console.error('Google Maps script failed to load.');
+                    renderMapFallback();
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                console.error('Unable to initialize Google Maps:', error);
+                renderMapFallback();
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadGoogleMapsScript);
+        } else {
+            loadGoogleMapsScript();
+        }
+    </script>
     
     <!-- Custom Styles -->
     <style>
@@ -322,7 +413,7 @@
                 <h2 class="font-display text-3xl font-bold mb-8 text-center text-charcoal">Find Us on the Map</h2>
                 <div class="map-container" id="map">
                     <!-- Google Map will be embedded here -->
-                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <div class="map-placeholder w-full h-full bg-gray-200 flex items-center justify-center">
                         <div class="text-center">
                             <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
