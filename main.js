@@ -235,10 +235,11 @@ function initializeScrollAnimations() {
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
         const parallaxElements = document.querySelectorAll('.hero-bg, .hero-about');
-        
+
         parallaxElements.forEach(element => {
             const speed = 0.5;
-            element.style.transform = `translateY(${scrolled * speed}px)`;
+            const offset = scrolled * speed;
+            element.style.setProperty('--parallax-offset', `${offset}px`);
         });
     });
     

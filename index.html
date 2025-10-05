@@ -49,8 +49,9 @@
             background: linear-gradient(135deg, rgba(244, 194, 194, 0.1) 0%, rgba(255, 248, 220, 0.2) 100%);
             position: relative;
             overflow: hidden;
+            --parallax-offset: 0px;
         }
-        
+
         .hero-bg::before {
             content: '';
             position: absolute;
@@ -61,6 +62,8 @@
             background: url('./resources/hero-restaurant.jpg') center/cover no-repeat;
             opacity: 0.3;
             z-index: -1;
+            transform: translateY(var(--parallax-offset, 0px));
+            will-change: transform;
         }
         
         .glass-nav {
