@@ -171,10 +171,27 @@
             position: relative;
             z-index: 1;
         }
-        
+
         .animate-fade-in {
             position: relative;
             z-index: 2;
+        }
+
+        /* Logo styling */
+        .logo {
+            display: block;
+            height: auto;
+            width: auto;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .glass-nav .logo {
+            height: 2.5rem;
+        }
+
+        footer .logo {
+            height: 2rem;
         }
     </style>
 </head>
@@ -184,7 +201,7 @@
         <div class="max-w-6xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-10 w-auto">
+                    <img src="./resources/logo.png" alt="Sakura Ramen Logo" class="logo" />
                     <div class="font-display text-2xl font-bold text-gradient">
                         Sakura Ramen
                     </div>
@@ -407,7 +424,7 @@
     <footer class="bg-charcoal text-white py-12">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <div class="flex items-center justify-center space-x-3 mb-4">
-                <img src="resources/logo.png" alt="Sakura Ramen Logo" class="h-8 w-auto">
+                <img src="./resources/logo.png" alt="Sakura Ramen Logo" class="logo" />
                 <div class="font-display text-3xl font-bold text-gradient">
                     Sakura Ramen
                 </div>

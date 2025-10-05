@@ -388,21 +388,36 @@ function debounce(func, wait) {
 
 // Performance optimization
 function optimizeImages() {
-    const images = document.querySelectorAll('img');
-    
+    const images = document.querySelectorAll('img[data-src]');
+
+    if (images.length === 0) {
+        return;
+    }
+
+    const loadImage = (img) => {
+        if (!img.dataset || !img.dataset.src) {
+            return;
+        }
+
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+        img.removeAttribute('data-src');
+    };
+
     if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
+        const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
+                    loadImage(img);
                     imageObserver.unobserve(img);
                 }
             });
         });
-        
+
         images.forEach(img => imageObserver.observe(img));
+    } else {
+        images.forEach(loadImage);
     }
 }
 
