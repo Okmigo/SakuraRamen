@@ -350,8 +350,9 @@
         }
 
         .hero-bg .logo {
-            max-width: 200px;
-            margin: 0 auto 2rem;
+            max-width: clamp(280px, 32vw, 520px);
+            width: 100%;
+            margin: 0 auto 2.5rem;
         }
 
         footer .logo {
@@ -365,8 +366,8 @@
             }
 
             .hero-bg .logo {
-                max-width: 150px;
-                margin-bottom: 1.5rem;
+                max-width: clamp(220px, 55vw, 320px);
+                margin: 0 auto 1.75rem;
             }
         }
     </style>
