@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollAnimations();
     initializeCartFunctionality();
     initializeTextAnimations();
+    initializeChatbot();
 });
 
 // Navigation functionality
@@ -116,6 +117,59 @@ function initializeTextAnimations() {
             });
         }
     }
+}
+
+function initializeChatbot() {
+    const widget = document.querySelector('.chatbot-widget');
+    if (!widget) return;
+
+    const toggleButton = widget.querySelector('.chatbot-toggle');
+    const closeButton = widget.querySelector('.chatbot-close');
+    const chatWindow = widget.querySelector('.chatbot-window');
+    const messageInput = widget.querySelector('.chatbot-input');
+
+    if (!toggleButton || !chatWindow) return;
+
+    const openChat = () => {
+        chatWindow.hidden = false;
+        widget.classList.add('chatbot-open');
+        toggleButton.setAttribute('aria-expanded', 'true');
+        if (messageInput && !messageInput.disabled) {
+            messageInput.focus({ preventScroll: true });
+        }
+    };
+
+    const closeChat = () => {
+        chatWindow.hidden = true;
+        widget.classList.remove('chatbot-open');
+        toggleButton.setAttribute('aria-expanded', 'false');
+        toggleButton.focus({ preventScroll: true });
+    };
+
+    toggleButton.addEventListener('click', () => {
+        if (chatWindow.hidden) {
+            openChat();
+        } else {
+            closeChat();
+        }
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closeChat);
+    }
+
+    document.addEventListener('click', event => {
+        if (!widget.contains(event.target) && !chatWindow.hidden) {
+            closeChat();
+        }
+    });
+
+    widget.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !chatWindow.hidden) {
+            event.stopPropagation();
+            closeChat();
+        }
+    });
 }
 
 // Menu filtering functionality
