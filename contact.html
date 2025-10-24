@@ -465,27 +465,31 @@
     <!-- Navigation -->
     <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
+            <div class="flex items-center justify-between gap-6">
+                <a href="index.html" class="hidden md:block">
                     <img src="./resources/logo.png" alt="Sakura Ramen Logo" class="logo" />
-                </div>
-                
+                </a>
+
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Home</a>
                     <a href="menu.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">Menu</a>
                     <a href="about.html" class="text-gray-600 hover:text-sakura-pink transition-colors font-medium">About</a>
                     <a href="contact.html" class="text-gray-800 hover:text-sakura-pink transition-colors font-medium">Contact</a>
-                    <button class="btn-primary px-6 py-2 rounded-full font-medium">Order Online</button>
+                    <button type="button" data-cart-trigger class="relative px-5 py-2 rounded-full border border-gray-300 font-medium text-gray-700 hover:text-gray-900 hover:border-gray-400 transition">
+                        <span>Cart</span>
+                        <span data-cart-count class="ml-2 inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-[#F4C2C2] px-2 text-sm font-semibold text-gray-900" aria-live="polite">0</span>
+                    </button>
+                    <a href="https://order.sakuraramen208.com/" target="_blank" rel="noopener" class="btn-primary px-6 py-2 rounded-full font-medium">Order Online</a>
                 </div>
-                
-                <button class="md:hidden p-2" id="mobile-menu-btn">
+
+                <button class="md:hidden p-2" id="mobile-menu-btn" aria-label="Toggle navigation">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
         </div>
-        
+
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
             <div class="px-6 py-4 space-y-4">
@@ -493,7 +497,8 @@
                 <a href="menu.html" class="block text-gray-600">Menu</a>
                 <a href="about.html" class="block text-gray-600">About</a>
                 <a href="contact.html" class="block text-gray-800 font-medium">Contact</a>
-                <button class="btn-primary px-6 py-2 rounded-full font-medium w-full">Order Online</button>
+                <button type="button" data-cart-trigger class="w-full border border-gray-300 rounded-full py-2 font-medium text-gray-700">View Cart (<span data-cart-count>0</span>)</button>
+                <a href="https://order.sakuraramen208.com/" target="_blank" rel="noopener" class="btn-primary px-6 py-2 rounded-full font-medium w-full text-center inline-block">Order Online</a>
             </div>
         </div>
     </nav>
@@ -807,5 +812,6 @@
             setInterval(updateOpenStatus, 60000);
         });
     </script>
+    <script type="module" src="./src/components/Cart.js"></script>
 </body>
 </html>
