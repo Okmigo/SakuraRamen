@@ -2,6 +2,7 @@
 // Handles all interactive functionality, animations, and user experience
 
 // Global variables
+let cart = [];
 let currentFilter = 'all';
 
 // Initialize everything when DOM is loaded
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSearch();
     initializeContactForm();
     initializeScrollAnimations();
+    initializeCartFunctionality();
     initializeTextAnimations();
     initializeChatbot();
 });
@@ -310,6 +312,60 @@ function initializeScrollAnimations() {
     }
 }
 
+// Cart functionality
+function initializeCartFunctionality() {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCartModal = document.getElementById('close-cart-modal');
+    
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            showCartModal();
+        });
+    });
+    
+    if (closeCartModal) {
+        closeCartModal.addEventListener('click', function() {
+            hideCartModal();
+        });
+    }
+    
+    if (cartModal) {
+        cartModal.addEventListener('click', function(e) {
+            if (e.target === cartModal) {
+                hideCartModal();
+            }
+        });
+    }
+}
+
+function showCartModal() {
+    const cartModal = document.getElementById('cart-modal');
+    if (cartModal) {
+        cartModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        
+        if (typeof anime !== 'undefined') {
+            anime({
+                targets: cartModal.querySelector('.bg-white'),
+                scale: [0.8, 1],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutExpo'
+            });
+        }
+    }
+}
+
+function hideCartModal() {
+    const cartModal = document.getElementById('cart-modal');
+    if (cartModal) {
+        cartModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+}
+
 // Contact form functionality
 function initializeContactForm() {
     const contactForm = document.getElementById('contact-form');
@@ -434,7 +490,7 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         const openModals = document.querySelectorAll('.fixed:not(.hidden)');
         openModals.forEach(modal => {
-            if (modal.id === 'success-modal') {
+            if (modal.id === 'cart-modal' || modal.id === 'success-modal') {
                 modal.classList.add('hidden');
                 document.body.style.overflow = 'auto';
             }
